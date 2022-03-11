@@ -7,35 +7,21 @@ state("SW3")
 
 init 
 {
-    // Basically finding and naming the exe we want to target as I understand it
-    switch(modules.First().ModuleMemorySize)
+    switch (modules.First().ModuleMemorySize)
     {
-        case 536576 :
-            version = "wrongEXE";
-            break;
+        case 0x83000: break;
+        default: return;
     }
 
-    // Now using the exe we found earlier, we can tell livesplit to leave it alone and find the correct exe we want to read from
-    if (version != "wrongEXE")
+    // Grab the autosplitter from splits/layout
+    var aslCmp = timer.Layout.Components.Append((timer.Run.AutoSplitter ?? new AutoSplitter()).Component)
+                 .FirstOrDefault(c => c.GetType().Name == "ASLComponent");
+
+    if (aslComponent == null)
         return;
 
-    var allComponents = timer.Layout.Components;
-
-    // Grab the autosplitter from splits
-    if (timer.Run.AutoSplitter != null && timer.Run.AutoSplitter.Component != null)
-        allComponents = allComponents.Append(timer.Run.AutoSplitter.Component);
-
-    foreach (var component in allComponents)
-    {
-        var type = component.GetType();
-        if (type.Name != "ASLComponent")
-            continue;
-
-        // Could also check script path, but renaming the script breaks that, and
-        // running multiple autosplitters at once is already just asking for problems
-        var script = type.GetProperty("Script").GetValue(component);
-        script.GetType().GetField("_game", BindingFlags.NonPublic | BindingFlags.Instance).SetValue(script, null);
-    }
+    var script = aslCmp.GetType().GetProperty("Script").GetValue(aslCmp);
+    script.GetType().GetField("_game", BindingFlags.NonPublic | BindingFlags.Instance).SetValue(script, null);
 }
 
 startup
