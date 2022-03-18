@@ -17,7 +17,7 @@ init
     var aslCmp = timer.Layout.Components.Append((timer.Run.AutoSplitter ?? new AutoSplitter()).Component)
                  .FirstOrDefault(c => c.GetType().Name == "ASLComponent");
 
-    if (aslComponent == null)
+    if (aslCmp == null)
         return;
 
     var script = aslCmp.GetType().GetProperty("Script").GetValue(aslCmp);
