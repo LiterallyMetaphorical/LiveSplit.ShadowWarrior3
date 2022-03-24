@@ -1,3 +1,4 @@
+
 state("SW3")
 {
     // Always in SW3.exe. Goes from 1-2 and then quickly hits 39 for the "Press any button to continue" part of loading.
@@ -68,9 +69,9 @@ split
 }
 
 update
-{
+/*{
     print(current.objective.ToString());
-}
+}*/
 
 isLoading
 {
