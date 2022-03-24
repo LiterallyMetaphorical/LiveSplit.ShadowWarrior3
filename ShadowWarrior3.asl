@@ -1,3 +1,5 @@
+//Thanks to Heny, Ero, and Apple for helping me out with this :)
+
 state("SW3")
 {
     bool loading        : 0x492D678;
