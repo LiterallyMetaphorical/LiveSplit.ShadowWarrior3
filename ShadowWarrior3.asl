@@ -1,4 +1,3 @@
-
 state("SW3")
 {
     // Always in SW3.exe. Goes from 1-2 and then quickly hits 39 for the "Press any button to continue" part of loading.
@@ -63,14 +62,14 @@ start
     return (current.objective == "/Game/Maps/Levels/01_The_Plan/01_The_Plan" && old.objective == "/Game/Maps/Levels/StartLevel");
 }
 
-split
-{
-    return current.objective != old.objective && current.objective != "/Game/Maps/Levels/StartLevel";
-}
-
 isLoading
 {
     return current.loading != 0 || current.cutsceneState == 1;
+}
+
+split
+{
+    return current.objective != old.objective && current.objective != "/Game/Maps/Levels/StartLevel";
 }
 
 exit
