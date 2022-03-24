@@ -1,10 +1,13 @@
-//Thanks to Heny, Ero, and Apple for helping me out with this :)
-
 state("SW3")
 {
-    bool loading        : 0x492D678;
-    string100 objective : 0x4E05BF0, 0x8C8, 0x0; // UTF-16 all the time. Tends to start from the same address, and ends in 0x0. Everything inbetween can change between updates
-    int cutsceneState   : "bink2w64.dll", 0x56310;
+    // Always in SW3.exe. Goes from 1-2 and then quickly hits 39 for the "Press any button to continue" part of loading.
+    int loading         : 0x4C1FD14; 
+    
+    // UTF-16 all the time. Tends to start from the same address, and ends in 0x0. Everything inbetween can change between updates.
+    string150 objective : 0x4D5A938, 0x8, 0x1A8, 0x270, 0x30, 0xF8, 0x0; 
+    
+    // Shouldn't break on updates.
+    int cutsceneState   : "bink2w64.dll", 0x56310; 
 }
 
 init 
@@ -64,14 +67,14 @@ split
     return current.objective != old.objective && current.objective != "/Game/Maps/Levels/StartLevel";
 }
 
-/*update
+update
 {
-    print(current.cutsceneState.ToString());
-}*/
+    print(current.objective.ToString());
+}
 
 isLoading
 {
-    return !current.loading || current.cutsceneState == 1;
+    return current.loading != 0 || current.cutsceneState == 1;
 }
 
 exit
