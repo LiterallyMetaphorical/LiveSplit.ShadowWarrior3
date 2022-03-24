@@ -68,11 +68,6 @@ split
     return current.objective != old.objective && current.objective != "/Game/Maps/Levels/StartLevel";
 }
 
-update
-/*{
-    print(current.objective.ToString());
-}*/
-
 isLoading
 {
     return current.loading != 0 || current.cutsceneState == 1;
