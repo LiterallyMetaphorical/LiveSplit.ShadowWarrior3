@@ -1,10 +1,11 @@
+
 state("SW3")
 {
     // Always in SW3.exe. Goes from 1-2 and then quickly hits 39 for the "Press any button to continue" part of loading.
-    int loading         : 0x4C1FD14; 
+    int loading         : 0x4C55214; 
     
     // UTF-16 all the time. Tends to start from the same address, and ends in 0x0. Everything inbetween can change between updates.
-    string150 objective : 0x4D5A938, 0x8, 0x1A8, 0x270, 0x30, 0xF8, 0x0; 
+    string150 objective : 0x4D90CE0, 0xE00, 0x30, 0xF8, 0x0; 
     
     // Shouldn't break on updates.
     int cutsceneState   : "bink2w64.dll", 0x56310; 
