@@ -2,10 +2,10 @@
 state("SW3")
 {
     // Always in SW3.exe. Goes from 1-2 and then quickly hits 39 for the "Press any button to continue" part of loading.
-    int loading         : 0x4C6DD54;
+    int loading         : 0x04DA7450, 0x1DC;
     
     // UTF-16 all the time. Tends to start from the same address, and ends in 0x0. Everything inbetween can change between updates.
-    string150 objective : 0x04D95C90, 0x520, 0x30, 0xF8, 0x0; 
+    string150 objective : 0x04DBE9F0, 0x180, 0x30, 0xF8, 0x0; 
     
     // Shouldn't break on updates.
     int cutsceneState   : "bink2w64.dll", 0x56310; 
@@ -15,7 +15,7 @@ init
 {
     switch (modules.First().ModuleMemorySize)
     {
-        case 0x83000: break;
+        case 0x100000: break; //try 83000
         default: return;
     }
 
@@ -67,6 +67,11 @@ isLoading
 {
     return current.loading != 0 || current.cutsceneState == 1;
 }
+
+update
+{
+ print(current.objective.ToString());
+} 
 
 split
 {
