@@ -5,7 +5,7 @@ state("SW3")
     int loading         : 0x04DA7450, 0x1DC;
     
     // UTF-16 all the time. Tends to start from the same address, and ends in 0x0. Everything inbetween can change between updates.
-    string150 objective : 0x04DBE9F0, 0x180, 0x30, 0xF8, 0x0; 
+    string150 mission : 0x04DBE9F0, 0x180, 0x30, 0xF8, 0x0; 
     
     // Shouldn't break on updates.
     int cutsceneState   : "bink2w64.dll", 0x56310; 
@@ -60,7 +60,7 @@ onStart
 start
 {
     // Start the timer when the loaded map changes from the Main Menu to Chapter 1 during the load screen
-    return (current.objective == "/Game/Maps/Levels/01_The_Plan/01_The_Plan" && old.objective == "/Game/Maps/Levels/StartLevel");
+    return (current.mission == "/Game/Maps/Levels/01_The_Plan/01_The_Plan" && old.mission == "/Game/Maps/Levels/StartLevel");
 }
 
 isLoading
@@ -70,13 +70,33 @@ isLoading
 
 update
 {
- print(current.objective.ToString());
+ print(current.mission.ToString());
 } 
 
 split
 {
-    return current.objective != old.objective && current.objective != "/Game/Maps/Levels/StartLevel";
+    return current.mission != old.mission && current.mission != "/Game/Maps/Levels/StartLevel";
 }
+
+split 
+{ 	return   
+		(current.mission.Contains("03_Way_To_Motoko"))             && (old.mission.Contains("01_The_Plan")) ||
+        (current.mission.Contains("04_Motokos_Cave"))              && (old.mission.Contains("03_Way_To_Motoko")) ||
+        (current.mission.Contains("05_Dam"))                       && (old.mission.Contains("04_Motokos_Cave")) ||
+        (current.mission.Contains("05_B_Cave"))                    && (old.mission.Contains("05_Dam")) ||
+        (current.mission.Contains("06_DragonNest"))                && (old.mission.Contains("05_B_Cave")) ||
+        (current.mission.Contains("06_DN_BossGuardian"))          && (old.mission.Contains("06_DragonNest")) ||
+        (current.mission.Contains("06_Dragon_Nest_Egg_Chase"))     && (old.mission.Contains("06_DN_BossGuardian")) ||
+        (current.mission.Contains("07_Hot_Springs"))               && (old.mission.Contains("06_Dragon_Nest_Egg_Chase")) ||
+        (current.mission.Contains("09_Hojis_Portal"))              && (old.mission.Contains("07_Hot_Springs")) ||
+        (current.mission.Contains("15_Finding_Hoji"))              && (old.mission.Contains("09_Hojis_Portal")) ||
+        (current.mission.Contains("15_Frozen_Forest"))             && (old.mission.Contains("15_Finding_Hoji")) ||
+        (current.mission.Contains("14_Finding_Zilla"))             && (old.mission.Contains("15_Frozen_Forest")) ||
+        (current.mission.Contains("16_Frozen_World"))              && (old.mission.Contains("14_Finding_Zilla")) ||
+        (current.mission.Contains("16_Frozen_World_Part2"))        && (old.mission.Contains("16_Frozen_World")) ||
+        (current.mission.Contains("17_Dragon_Belly"))              && (old.mission.Contains("16_Frozen_World_Part2")) ||
+        (current.mission.Contains("DB_Boss_Kraken"))               && (old.mission.Contains("17_Dragon_Belly"));
+	}	
 
 exit
 {
