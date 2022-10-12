@@ -70,7 +70,7 @@ isLoading
 
 update
 {
- print(current.mission.ToString());
+print(current.mission.ToString());
 } 
 
 split
