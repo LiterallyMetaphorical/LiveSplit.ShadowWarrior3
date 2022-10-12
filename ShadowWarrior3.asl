@@ -93,10 +93,11 @@ split
         (current.mission.Contains("15_Frozen_Forest"))             && (old.mission.Contains("15_Finding_Hoji")) ||
         (current.mission.Contains("14_Finding_Zilla"))             && (old.mission.Contains("15_Frozen_Forest")) ||
         (current.mission.Contains("16_Frozen_World"))              && (old.mission.Contains("14_Finding_Zilla")) ||
-        (current.mission.Contains("16_Frozen_World_Part2"))        && (old.mission.Contains("16_Frozen_World")) ||
+        (current.mission.Contains("16_Frozen_World_Part2"))        && (!old.mission.Contains("16_Frozen_World_Part2")) ||
         (current.mission.Contains("17_Dragon_Belly"))              && (old.mission.Contains("16_Frozen_World_Part2")) ||
-        (current.mission.Contains("DB_Boss_Kraken"))               && (old.mission.Contains("17_Dragon_Belly"));
-	}	
+        (current.mission.Contains("DB_Boss_Kraken"))               && (!old.mission.Contains("DB_Boss_Kraken"));
+	}	 
+
 
 exit
 {
