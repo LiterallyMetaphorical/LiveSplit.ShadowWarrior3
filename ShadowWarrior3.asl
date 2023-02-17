@@ -2,7 +2,8 @@
 Scanning best practices
 
 Loading
-Always in SW3.exe. Goes from 1-2 and then quickly hits 39 for the "Press any button to continue" part of loading.
+Always in SW3.exe. Goes from 1-2 and then quickly hits 38 or 39 for the "Press any button to continue" part of loading.
+value is 0 in game
 Best just to scan for changed value between game/loading, and use unchanged for in game ONLY. since the load value changes cant be seen on the load screen.
 When the screen says "Press any key" you can mouse over to cheat engine and scan for 39
 
@@ -16,10 +17,24 @@ Cutscene
 All updates before 1.06 this was stored in bink2w64.dll but 1.06 deleted it. Now its stored in the exe - still 1 during cutscene and 0 elsewhere
 */
 
-state("SW3", "Steam v1.00")
+state("SW3", "Steam v1.01")
 {
-    int loading         : 0x4C6826C;
+    int loading         : 0x4CC9ED4;
     string150 mission   : 0x04E059B0, 0xE00, 0x30, 0xF8, 0x0; 
+    int cutsceneState   : "bink2w64.dll", 0x56310; 
+}
+
+state("SW3", "Steam v1.02")
+{
+    int loading         : 0x4C1FD14;
+    string150 mission   : 0x4D5A938, 0x8, 0x1A8, 0x270, 0x30, 0xF8, 0x0; 
+    int cutsceneState   : "bink2w64.dll", 0x56310; 
+}
+
+state("SW3", "Steam v1.03")
+{
+    int loading         : 0x4C55214;
+    string150 mission   : 0x4D90CE0, 0xE00, 0x30, 0xF8, 0x0; 
     int cutsceneState   : "bink2w64.dll", 0x56310; 
 }
 
@@ -42,7 +57,13 @@ init
 switch (modules.First().ModuleMemorySize) 
     {
         case 87080960: 
-            version = "Steam v1.00";
+            version = "Steam v1.01";
+            break;
+        case 86315008: 
+            version = "Steam v1.02";
+            break;
+        case 86552576: 
+            version = "Steam v1.03";
             break;
         case 86740992: 
             version = "Steam v1.05";
